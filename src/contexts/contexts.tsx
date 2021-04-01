@@ -1,4 +1,4 @@
-import React, { createContext, FC, Reducer, useReducer } from 'react';
+import React, { createContext, Dispatch, FC, Reducer, useReducer } from 'react';
 
 export type CurrentUserState = {
   isLoading: boolean;
@@ -12,12 +12,15 @@ export const initialState: CurrentUserState = {
   currentUser: null,
 };
 
-type Actions = {
+export type Actions = {
   type: 'LOADING' | 'SET_AUTHORIZED' | 'SET_UNAUTHORIZED';
-  payload: string;
+  payload: string | null;
 };
 
-export const reducer: Reducer<CurrentUserState, Actions> = (state, action) => {
+export const reducer: Reducer<CurrentUserState, Actions> = (
+  state = initialState,
+  action
+) => {
   switch (action.type) {
     case 'LOADING':
       return { ...state, isLoading: true };
@@ -39,7 +42,9 @@ export const reducer: Reducer<CurrentUserState, Actions> = (state, action) => {
   }
 };
 
-export const CurrentUserContext = createContext<any>({});
+export const CurrentUserContext = createContext<
+  [CurrentUserState, Dispatch<Actions>] | undefined
+>(undefined);
 
 const CurrentUserProvider: FC = ({ children }) => {
   const value = useReducer(reducer, initialState);

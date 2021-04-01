@@ -31,7 +31,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --runInBand --env=jsdom",
-    "coverage": "npm run test -- --coverage --watchAll=false",
+    "coverage": "npm test -- --coverage --watchAll=false",
     "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\" --max-warnings=0",
     "tsc": "tsc --noEmit"
   },
